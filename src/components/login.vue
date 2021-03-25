@@ -55,7 +55,7 @@
       },
       login(){
         this.$refs.loginFormRef.validate(async valId=>{
-          if(!valId)return
+          if(!valId)return false
          const {data:res}= await this.$http.post('login',this.inputForm);
           if(res.meta.status!==200) return this.$message.error('登录失败')
             this.$message.success('登录成功')
