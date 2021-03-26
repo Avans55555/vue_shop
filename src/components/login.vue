@@ -110,5 +110,6 @@
     bottom: 0;
     width: 100%;
     padding:0 30px;
+    box-sizing: border-box;
   }
 </style>

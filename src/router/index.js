@@ -32,6 +32,10 @@ const routes = [
       {
         path:'/rights',
         component:()=>import('../views/childComps/limits/Rights')
+      },
+      {
+        path:'/categories',
+        component:()=>import('../views/childComps/goods/Categories')
       }
     ]
   }

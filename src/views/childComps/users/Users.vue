@@ -25,6 +25,7 @@
       </el-row>
       <!--    表格-->
       <el-table :data="userList" stripe border>
+
         <el-table-column label="#" type="index">
         </el-table-column>
         <el-table-column label="姓名" prop="username">

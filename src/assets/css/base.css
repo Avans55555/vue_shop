@@ -18,3 +18,10 @@ html,body,#app{
 .el-row{
   margin-bottom: 15px;
 }
+/*.el-cascader-menu__wrap.el-scrollbar__wrap {*/
+/*  height: 300px;   overflow: auto; }*/
+
+.el-cascader-menu{
+  height: 300px;
+
+}
