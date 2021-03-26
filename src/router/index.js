@@ -28,6 +28,10 @@ const routes = [
       {
         path:'/roles',
         component:()=>import('../views/childComps/limits/Roles')
+      },
+      {
+        path:'/rights',
+        component:()=>import('../views/childComps/limits/Rights')
       }
     ]
   }

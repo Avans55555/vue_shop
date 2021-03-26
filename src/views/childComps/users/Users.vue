@@ -1,12 +1,12 @@
 <template>
   <div>
-    <!--    面包屑-->
+      <!--    面包屑-->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>用户管理</el-breadcrumb-item>
       <el-breadcrumb-item>用户列表</el-breadcrumb-item>
     </el-breadcrumb>
-    <!--    卡片-->
+      <!--    卡片-->
     <el-card class="box-card">
       <!--    搜索框-->
       <el-row :gutter="20">
@@ -49,7 +49,7 @@
             <el-button size="mini" type="danger" icon="el-icon-delete" @click="deleteUser(scope.row.id)"></el-button>
 <!--            分配角色按钮-->
             <el-tooltip :enterable="false" class="item" effect="dark" content="分配角色" placement="top">
-              <el-button size="mini" type="warning" icon="el-icon-setting"></el-button>
+              <el-button size="mini" type="warning" icon="el-icon-setting" @click="setRoles(scope.row)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -65,9 +65,9 @@
               :total="total">
       </el-pagination>
     </el-card>
-<!--  添加用户-->
+      <!--  添加用户-->
     <UserAddUsers ref="addUser" />
-    <!--  修改用户信息对话框-->
+      <!--  修改用户信息对话框-->
     <el-dialog
             title="修改用户信息"
             :visible.sync="isUpdateUser"
@@ -91,6 +91,31 @@
     <el-button type="primary" @click="isUpdateUsers">确 定</el-button>
   </span>
     </el-dialog>
+      <!--  分配角色-->
+    <el-dialog
+            title="分配角色"
+            :visible.sync="isSetRoles"
+            @close="setRolesClosed"
+            width="35%">
+      <div>
+        <p>当前的用户:{{this.roleInfo.username}}</p>
+        <p>当前的角色:{{this.roleInfo.role_name}}</p>
+        <el-select v-model="getRoles" placeholder="请选择">
+          <el-option
+                  v-for="item in rolesList"
+                  :key="item.id"
+                  :label="item.roleName"
+                  :value="item.id">
+          </el-option>
+        </el-select>
+      </div>
+
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="isSetRoles = false">取 消</el-button>
+    <el-button type="primary" @click="selectRoles()">确 定</el-button>
+  </span>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -128,8 +153,12 @@
           pagesize: 2
         },
         userList: [],
+        rolesList:[],
+        getRoles:'',
         total: 0,
         isUpdateUser: false,
+        isSetRoles:false,
+        roleInfo:[],
         //添加用户表单
         addUser: {
           username: '',
@@ -139,7 +168,7 @@
         },
         //修改用户
         updateForm: {},
-        //设置表单规则
+        //设置表单添加规则
         addUserRules: {
           username: [
             {required: true, message: '请输入用户名', trigger: 'blur'},
@@ -158,6 +187,7 @@
             {validator: checkMobile, trigger: 'blur'}
           ]
         },
+        //修改规则
         updateRules: {
           email: [
             {required: true, message: '请输入正确邮箱', trigger: 'blur'},
@@ -224,9 +254,11 @@
           this.getUsersList()
         })
       },
+      //修改对话框关闭回调
       updateDialogClosed() {
         this.$refs.updateForm.resetFields()
       },
+      //删除用户
       async deleteUser(id){
         const result=await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -244,6 +276,28 @@
           }
           this.$message.success('删除成功')
           this.getUsersList()
+      },
+      //获取角色列表
+      async setRoles(roleInfo){
+        this.roleInfo=roleInfo
+       const{data:res}= await this.$http.get('roles')
+        if(res.meta.status!==200)return this.$message.error('获取失败')
+        this.rolesList=res.data
+        this.isSetRoles=true
+      },
+      //选择角色确定按钮监听
+      async selectRoles(){
+        if(!this.rolesList) return this.$message.error('请选择需要分配的角色')
+        const {data:res}=await this.$http.put(`users/${this.roleInfo.id}/role`,{rid:this.getRoles})
+        if(res.meta.status!==200) return this.$message.error('修改失败')
+        this.$message.success('修改成功')
+        this.getUsersList()
+        this.isSetRoles=false
+      },
+      //监听分配角色对话框关闭
+      setRolesClosed(){
+        this.getRoles=''
+        this.roleInfo=[]
       }
     }
   }

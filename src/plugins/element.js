@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import {
     Button,
     Form,
@@ -23,6 +24,10 @@ import {
     Tooltip,
     Pagination,
     Dialog,
+    Tag,
+    Tree,
+    Select,
+    Option,
     MessageBox
 
 } from 'element-ui'
@@ -50,5 +55,10 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Tag)
+Vue.use(Tree)
+Vue.use(Select)
+Vue.use(Option)
 Vue.prototype.$message=Message
 Vue.prototype.$confirm=MessageBox.confirm
+Vue.component(CollapseTransition.name, CollapseTransition)

@@ -60,6 +60,7 @@
         },
         userList: [],
         addUsers:false,
+        isUpdateUser: false,
         //添加用户表单
         addUser: {
           username: '',
