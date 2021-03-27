@@ -32,7 +32,7 @@
               <span class="item-span">{{fi.authName}}</span>
             </template>
 <!--            二级菜单-->
-              <el-menu-item @click="itemClick('/'+si.path + '')" :index="'/'+si.path + ''" v-for="si in fi.children" :key="si.id" >
+              <el-menu-item @click="itemClick('/'+si.path + '')" :index="'/'+si.path " v-for="si in fi.children" :key="si.id" >
                 <template slot="title" >
                   <i class="el-icon-menu"></i>
                   <span>{{si.authName}}</span>
@@ -84,10 +84,8 @@
       //得到菜单栏的数据
       async getAsideData(){
        const{data:res}= await this.$http.get('menus')
-        // console.log(res)
         if(res.meta.status!==200)return this.$message.error(res.meta.msg)
         this.menusList=res.data
-        // console.log(this.menusList)
       },
       //监听菜单栏事件
       fold(){
@@ -97,7 +95,8 @@
       itemClick(activePath){
         window.sessionStorage.setItem('activePath',activePath)
         this.activePath=activePath
-      }
+      },
+
     }
 
   }

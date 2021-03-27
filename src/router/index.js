@@ -36,6 +36,10 @@ const routes = [
       {
         path:'/categories',
         component:()=>import('../views/childComps/goods/Categories')
+      },
+      {
+        path:'/params',
+        component:()=>import('../views/childComps/goods/Params')
       }
     ]
   }

@@ -29,6 +29,9 @@ import {
     Select,
     Option,
     Cascader,
+    Alert,
+    Tabs,
+    TabPane,
     MessageBox
 
 } from 'element-ui'
@@ -61,6 +64,9 @@ Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Cascader)
+Vue.use(Alert)
+Vue.use(Tabs)
+Vue.use(TabPane)
 Vue.prototype.$message=Message
 Vue.prototype.$confirm=MessageBox.confirm
 Vue.component(CollapseTransition.name, CollapseTransition)
