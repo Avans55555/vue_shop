@@ -40,6 +40,14 @@ const routes = [
       {
         path:'/params',
         component:()=>import('../views/childComps/goods/Params')
+      },
+      {
+        path:'/goods',
+        component:()=>import('../views/childComps/goods/Goods')
+      },
+      {
+        path:'/add',
+        component:()=>import('../views/childComps/goods/Add')
       }
     ]
   }
