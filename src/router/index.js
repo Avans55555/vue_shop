@@ -48,6 +48,10 @@ const routes = [
       {
         path:'/add',
         component:()=>import('../views/childComps/goods/Add')
+      },
+      {
+        path:'/orders',
+        component:()=>import('../views/childComps/orders/Orders')
       }
     ]
   }

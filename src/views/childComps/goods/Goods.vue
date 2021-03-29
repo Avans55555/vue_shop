@@ -46,13 +46,13 @@
           <el-input  v-model="updateGoodForm.goods_name"></el-input>
         </el-form-item>
         <el-form-item label="商品价格" prop="goods_price">
-          <el-input v-model="updateGoodForm.goods_price"></el-input>
+          <el-input type="number" v-model="updateGoodForm.goods_price"></el-input>
         </el-form-item>
         <el-form-item label="商品重量" prop="goods_weight">
-          <el-input v-model="updateGoodForm.goods_weight"></el-input>
+          <el-input type="number" v-model="updateGoodForm.goods_weight"></el-input>
         </el-form-item>
         <el-form-item label="商品数量" prop="goods_number">
-          <el-input v-model="updateGoodForm.goods_number"></el-input>
+          <el-input type="number" v-model="updateGoodForm.goods_number"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -136,7 +136,6 @@
       //获取商品列表
       async getGoodsList(){
        const{data:res}=await this.$http.get('goods',{params:this.queryInfo})
-        console.log(res)
         // this.queryInfo.query=res.goods_name
         this.goodsList=res.data.goods
         this.total=res.data.total
